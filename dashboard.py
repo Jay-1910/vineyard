@@ -69,16 +69,17 @@ custom_css = """
 
 # Data fetching via API
 api_url = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/birdwood%2C%20south%20australia?unitGroup=metric&include=days&key=CBWQ6NTRW2GUF443E4WZ7XLGM&contentType=csv"
-response = requests.get(api_url)
-csv_data = response.content
-df = pd.read_csv(io.BytesIO(csv_data))
 
-# Correct date format
-df['datetime'] = pd.to_datetime(df['datetime']).dt.strftime('%d-%m-%Y')
-# Correct data type
-df['datetime'] = pd.to_datetime(df['datetime'])
-# Interpreted date format
-df['interpreted_date'] = df['datetime'].dt.strftime('%d %B, %Y')
+def fetch_data(api_url):
+    response = requests.get(api_url)
+    csv_data = response.content
+    df = pd.read_csv(io.BytesIO(csv_data))
+    df['datetime'] = pd.to_datetime(df['datetime']).dt.strftime('%d-%m-%Y')
+    df['datetime'] = pd.to_datetime(df['datetime'])
+    df['interpreted_date'] = df['datetime'].dt.strftime('%d %B, %Y')
+    return df
+
+df = fetch_data(api_url)
 # Display today
 first_datetime = df.loc[0, 'interpreted_date']
 
@@ -109,7 +110,6 @@ def show_dashboard():
     col1, col2, col3, col4, col5 = st.columns(5)
     with col5:
         st.image(logo, use_column_width=False, width=new_size[0])
-
 
 
     
