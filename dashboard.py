@@ -74,7 +74,6 @@ def fetch_data(api_url):
     response = requests.get(api_url)
     csv_data = response.content
     df = pd.read_csv(io.BytesIO(csv_data))
-    df['datetime'] = pd.to_datetime(df['datetime']).dt.strftime('%d-%m-%Y')
     df['datetime'] = pd.to_datetime(df['datetime'])
     df['interpreted_date'] = df['datetime'].dt.strftime('%d %B, %Y')
     return df
@@ -99,12 +98,12 @@ def show_dashboard():
     # Rainfall Over Time chart
     with col1:
         st.subheader('🌧️Rainfall Over Time')
-        st.line_chart(df.set_index('datetime')['precip'], use_container_width=True)
+        st.area_chart(data=df, x='datetime', y='precip', use_container_width=True)
 
     # Temperature Over Time chart
     with col2:
         st.subheader('☀️Temperature Over Time')
-        st.line_chart(df.set_index('datetime')['temp'], use_container_width=True)
+        st.line_chart(data=df, x='datetime', y='temp', use_container_width=True)
 
     # DTA logo
     col1, col2, col3, col4, col5 = st.columns(5)

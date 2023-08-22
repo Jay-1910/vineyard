@@ -25,7 +25,7 @@ def load_model():
 data = load_model()
 melbourne_model = data['model']
 
-def show_predicton():
+def show_pred():
     st.markdown(custom_css, unsafe_allow_html=True)
     st.title("Vineyard Evaporation Prediction Model")
     max_temp = st.slider("Maximum temperature",5,35,15)
