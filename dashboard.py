@@ -20,15 +20,6 @@ custom_css = """
     .stApp {
         background-color: #f8f8f8;
     }
-    .stButton {
-        background-color: #ff5722 !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 4px;
-        padding: 10px 20px !important;
-        cursor: pointer !important;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-    }
     .stTextInput {
         background-color: #ffffff !important;
         color: #444444 !important;
