@@ -57,13 +57,6 @@ custom_css = """
     .custom-sidebar {
         position: relative;
     }
-    .image-container {
-        margin-left: auto;
-        margin-right: 0;
-        display: block;
-        max-width: 100%;
-        height: auto;
-    }
 </style>
 """
 
@@ -82,10 +75,6 @@ df = fetch_data(api_url)
 # Display today
 first_datetime = df.loc[0, 'interpreted_date']
 
-image_path = "DTA Logo.png"
-logo = Image.open(image_path)
-new_size = (150, 100)
-logo = logo.resize(new_size)
 
 # Create Streamlit app and display dashboard
 def show_dashboard():
@@ -105,10 +94,6 @@ def show_dashboard():
         st.subheader('☀️Temperature Over Time')
         st.line_chart(data=df, x='datetime', y='temp', use_container_width=True)
 
-    # DTA logo
-    col1, col2, col3, col4, col5 = st.columns(5)
-    with col5:
-        st.image(logo, use_column_width=False, width=new_size[0])
 
 
     
