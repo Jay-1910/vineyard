@@ -62,13 +62,11 @@ def fetch_data(api_url):
     df['interpreted_date'] = df['datetime'].dt.strftime('%d %B, %Y')
     return df
 
-df = fetch_data(api_url)
-# Display today
-first_datetime = df.loc[0, 'interpreted_date']
-
 
 # Create Streamlit app and display dashboard
 def show_dashboard():
+    df = fetch_data(api_url)
+    first_datetime = df.loc[0, 'interpreted_date']
     st.markdown(custom_css, unsafe_allow_html=True)
     st.title('🍇Vineyard Dashboard')
     st.write(f"Today: {first_datetime}")
